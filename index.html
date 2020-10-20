@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Code Interpreter</h1>
+    <div class="flex-container">
+      <section class="instructions">
+
+        <p>This Code Interpreter understands the following instructions:</p>
+        <div class="instructionsDiv">
+
+          <p>mov x y - copies y into register x</p>
+          <p>inc x - increases the content of the register x by one</p>
+          <p>dec x - decreases the content of the register x by one</p>
+          <p>jnz x y - jumps to an instruction y steps away (positive forward, negative backward), but only if x is not
+            zero</p>
+          <p>add x y - add the content of the register x with y and stores the result in x</p>
+          <p>sub x y - subtract y from the register x and stores the result in x </p>
+          <p>mul x y - multiply x by y and stores the result in x</p>
+          <p>div x y - divide x by y and stores the result in x</p>
+          <p>label: - define a label position eg. start:</p>
+          <p>cmp x y - compares x and y. Result used in conditional jumps (jne, je, jge, jg, jle and jl)</p>
+          <p>jne label - jump to the label if the values of the previous cmp command were not equal.</p>
+          <p>je label - jump to the label if the values of the previous cmp command were equal.</p>
+          <p>jge label - jump to the label if x was greater or equal than y in the previous cmp command.</p>
+          <p>jg label - jump to the label if x was greater than y in the previous cmp command.</p>
+          <p>jle label - jump to the label if x was less or equal than y in the previous cmp command.</p>
+          <p>jl label - jump to the label if x was less than y in the previous cmp command.</p>
+
+        </div>
+      </section>
+      <section class="inputCode">
+        <label for="userInput">Type your code here. Separate instructions with a comma</label>
+        <textarea name="userInput" id="userInput" cols="30" rows="10" placeholder="Example: mov a 3, dec a, jnz a -1"></textarea>
+        <button id="runCode">Run</button>
+      </section>
+      <section class="outputCode">
+        <p>The outputted results will appear here when you click run</p>
+        <div class="outputDiv"></div>
+      </section>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+html {
+  --scrollbarBG: #1b1b1b;
+  --thumbBG: #ff07ff;
+}
+body::-webkit-scrollbar {
+  width: 11px;
+}
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto Mono', monospace;
+  background-color: black;
+}
+
+.container {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: .6em 0 .3em;
+  text-align: center;
+  color: #ff07ff;
+  text-shadow: 1px 1px 12px #ff07ff;
+  
+}
+
+.outputDiv {
+  width: 300px;
+  height: 400px;
+  background-color: #1b1b1b;
+}
+
+.instructionsDiv {
+  width: 300px;
+  height: 400px;
+  background-color: #1b1b1b;
+  text-align: left;
+  padding: 1em;
+  overflow-y: scroll;
+  
+}
+
+
+/*Scrollbar*/
+.instructionsDiv::-webkit-scrollbar {
+  width: 7px;
+}
+.instructionsDiv {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+.instructionsDiv::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+.instructionsDiv::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+
+section {
+  max-width: 350px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #ff07ff;
+  box-shadow: 1px 1px 12px #ff07ff;
+  align-items: center;
+  margin: 20px auto;
+  padding: 20px 0;
+}
+
+
+textarea {
+  width: 300px;
+  min-height: 400px;
+  display: block;
+  background-color: #1b1b1b;
+  border: none;
+  color: #ff07ff;
+  padding: 1em;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1rem;
+  
+  
+}
+
+p, label {
+  margin-bottom: 1em;
+  color: #ff07ff;
+}
+
+.instructionsDiv p {
+  font-size: .7rem;
+}
+
+button {
+  margin-top: 1em;
+  padding: .5em 2em;
+  font: 'Roboto Mono', monospace;
+  font-weight: 700;
+  background-color: #ff07ff;
+  border-color: #ff07ffab;
+
+}
+
+button:hover,
+button:focus {
+  background-color:#ff07ffab;
+  border-color: #ff07ff;
+  
+}
+
+li {
+  list-style: none;
+  color: #ff07ff;
+  margin-top: 1em;
+  text-align: left;
+  padding: 0 1em;
+}
+
+/* @media (min-width: 600px) {
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    
+  }
+
+  section + section {
+    margin-left: 10px;
+  }
+
+  
+} */
+
+@media screen and (min-width: 768px) {
+
+  
+
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  section.instructions {
+    min-width: 95%;
+    
+  }
+
+  .instructionsDiv {
+    width: 95%;
+    height: 300px;
+    
+  }
+}
+
+@media screen and (min-width: 1070px) {
+  section.instructions {
+    min-width: 350px;
+    max-width: 350px;
+    
+    
+  }
+
+  .instructionsDiv {
+    width: 300px;
+    height: 400px;
+    
+  }
+}
