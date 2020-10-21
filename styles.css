@@ -102,6 +102,7 @@ textarea {
   padding: 1em;
   font-family: 'Roboto Mono', monospace;
   font-size: 1rem;
+  line-height: 2;
   
   
 }
@@ -143,6 +144,8 @@ li {
 .error {
   color: #66ff00;
 }
+
+
 
 /* @media (min-width: 600px) {
   .flex-container {

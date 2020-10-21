@@ -4,8 +4,9 @@ let outputDiv = document.querySelector(".outputDiv")
 
 
 function createUserInputArr() {
-  let userInputArr = (userInput.value).split(",");
+  let userInputArr = (userInput.value).split("\n");
   let trimmedUserInputArr = userInputArr.map(el => el.trim())
+  console.log(trimmedUserInputArr);
   return trimmedUserInputArr;
 }
 
