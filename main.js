@@ -11,16 +11,16 @@ function createUserInputArr() {
 
 
 function errorOpImpossible(i, obj) {
-  console.error(`Line ${i + 1}: This operation is impossible`);
-  obj.error = `Line ${i + 1}: This operation is impossible`;
+  console.error(`Line ${i + 1} - This operation is impossible`);
+  obj.error = `Line ${i + 1} - This operation is impossible`;
   console.log(obj);
   return obj;
 
 }
 
 function errorDoesntExist(i, obj) {
-  console.error(`Line ${i + 1}: This function doesn't exist`);
-  obj.error = `Line ${i + 1}: This function doesn't exist`;
+  console.error(`Line ${i + 1} - This function doesn't exist`);
+  obj.error = `Line ${i + 1} - This function doesn't exist`;
   console.log(obj);
   return obj;
 }
@@ -216,6 +216,9 @@ outputDiv.append(ul);
 for (let element in object) {
   const li = document.createElement("li");
   li.innerText = `${element}: ${object[element]}`;
+  if (element === "error") {
+    li.classList.add("error");
+  }
   ul.append(li);
 }
 }
