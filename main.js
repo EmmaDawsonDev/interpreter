@@ -1,12 +1,15 @@
 let userInput = document.querySelector("#userInput");
 let runBtn = document.querySelector("#runCode");
-let outputDiv = document.querySelector(".outputDiv")
+let stepBtn = document.querySelector("#stepCode");
+let clearBtn = document.querySelector("#clearCode");
+let outputDiv = document.querySelector(".outputDiv");
+let count = 0;
+let finalObj = {};
 
 
 function createUserInputArr() {
   let userInputArr = (userInput.value).split("\n");
   let trimmedUserInputArr = userInputArr.map(el => el.trim())
-  console.log(trimmedUserInputArr);
   return trimmedUserInputArr;
 }
 
@@ -32,8 +35,9 @@ function errorInfiniteLoop(i, obj) {
   return obj;
 }
 
-function interpret(arr) {
-  const lettersObject = {};
+function interpret(arr, obj = {}) {
+  let lettersObject = obj
+  console.log(lettersObject)
   let valueAtJump = 0; // used for infinite increasing loops in jnz
   let valueAtCmp = 0; //used for infinite loops when using cmp
   let label = "";
@@ -296,9 +300,34 @@ for (let element in object) {
 //interpret(["mov a 10", "start:", "inc a", "cmp a 20", "jl start"])
 
 function runHandler() {
-  const finalObj = interpret(createUserInputArr())
+  const finalUserInput = createUserInputArr()
+  console.log(finalUserInput);
+  const finalObj = interpret(finalUserInput)
   renderObj(finalObj)
 }
 
+function stepHandler(count) {
+  const finalUserInput = createUserInputArr();
+  
+  console.log(userInput.value);
+  if (count >= finalUserInput.length) {
+    return;
+  } else {
+    finalObj.Line = `${count + 1} - ${finalUserInput[count]}`
+    finalObj = interpret([finalUserInput[count]], finalObj)
+    renderObj(finalObj);
+    
+  }
+  
+}
 
 runBtn.addEventListener("click", runHandler);
+stepBtn.addEventListener("click", () => {
+  stepHandler(count);
+  count++;
+  });
+  
+clearBtn.addEventListener("click", () => {
+  userInput.value = "";
+  outputDiv.innerHTML = "";
+})
