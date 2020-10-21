@@ -25,9 +25,16 @@ function errorDoesntExist(i, obj) {
   return obj;
 }
 
+function errorInfiniteLoop(i, obj) {
+  console.error(`Line ${i + 1} - created infinite loop`);
+  obj.error = `Line ${i + 1} - created infinite loop`;
+  return obj;
+}
+
 function interpret(arr) {
   const lettersObject = {};
   let valueAtJump = 0; // used for infinite increasing loops in jnz
+  let valueAtCmp = 0; //used for infinite loops when using cmp
   let label = "";
   let labelIndex = -1;
   let cmpX = 0;
@@ -70,10 +77,8 @@ function interpret(arr) {
         if (valueAtJump) {
           //first pass this will be 0 and won't run, second time it will run and if the loop continuously adds then it's an infinite loop and this will break it.
           if (lettersObject[temp[1]] >= valueAtJump) {
-            console.error(`Line ${i + 1}: Error: created infinite loop`);
-            lettersObject.error = `Line ${i + 1}: Error: created infinite loop`;
+            errorInfiniteLoop(i, lettersObject);
             return lettersObject;
-            
           }
         }
 
@@ -81,14 +86,12 @@ function interpret(arr) {
         i += temp[2] - 1;
         if (i <= -2) {
           //-2 to adjust for the i++ which happens at the end of this if statement
-          errorOpImpossible(i);
+          errorOpImpossible(i, lettersObject);
           return lettersObject;
         }
         if (lettersObject[temp[1]] < 0) {
-          console.error(`Line ${i + 1}: Error: created infinite loop`);
-          lettersObject.error = `Line ${i + 1}: Error: created infinite loop`;
+          errorInfiniteLoop(i, lettersObject);
           return lettersObject;
-          
         }
       }
     } else if (temp[0] === "add") {
@@ -158,6 +161,7 @@ function interpret(arr) {
       } else {
         cmpX = Number(temp[1]);
       }
+      
       if (isNaN(temp[2])) {
         cmpY = lettersObject[temp[1]];
       } else {
@@ -165,36 +169,80 @@ function interpret(arr) {
       } console.log(cmpX, cmpY);
     }
     else if (temp[0] === "jne" && temp[1] === label) {
+      if (valueAtCmp) {
+        if (cmpX > cmpY && valueAtCmp <= cmpX || cmpX < cmpY && valueAtCmp > cmpX) {
+          errorInfiniteLoop(i, lettersObject);
+          return lettersObject;
+        }
+      }
+
       if (cmpX !== cmpY) {
+        valueAtCmp = cmpX;
         i = labelIndex;
       }
     }
     else if (temp[0] === "je" && temp[1] === label) {
+      if (valueAtCmp) {
+        if (cmpX === cmpY && valueAtCmp === cmpX) {
+          errorInfiniteLoop(i, lettersObject);
+          return lettersObject;
+        }
+      }
       if (cmpX === cmpY) {
+        valueAtCmp = cmpX;
         i = labelIndex;
       }
     }
     else if (temp[0] === "jge" && temp[1] === label) {
+      if (valueAtCmp) {
+        if (cmpX >= cmpY && valueAtCmp <= cmpX) {
+          errorInfiniteLoop(i, lettersObject);
+          return lettersObject;
+        }
+      }
       if (cmpX >= cmpY) {
+        valueAtCmp = cmpX;
         i = labelIndex;
       }
     }
     else if (temp[0] === "jg" && temp[1] === label) {
+      if (valueAtCmp) {
+        if (cmpX > cmpY && valueAtCmp < cmpX) {
+          errorInfiniteLoop(i, lettersObject);
+          return lettersObject;
+        }
+      }
       if (cmpX > cmpY) {
+        valueAtCmp = cmpX;
         i = labelIndex;
       }
     }
     else if (temp[0] === "jle" && temp[1] === label) {
+      if (valueAtCmp) {
+        if (cmpX <= cmpY && valueAtCmp >= cmpX) {
+          errorInfiniteLoop(i, lettersObject);
+          return lettersObject;
+        }
+      }
       if (cmpX <= cmpY) {
+        valueAtCmp = cmpX;
         i = labelIndex;
       }
     }
     else if (temp[0] === "jl" && temp[1] === label) {
+      if (valueAtCmp) {
+        if (cmpX < cmpY && valueAtCmp > cmpX) {
+          errorInfiniteLoop(i, lettersObject);
+          return lettersObject;
+        }
+      }
       if (cmpX < cmpY) {
+        valueAtCmp = cmpX;
         i = labelIndex;
       }
     }
     else if (temp[0] === "jmp" && temp[1] === label) {
+      valueAtCmp = cmpX;
       i = labelIndex;
       
     }
